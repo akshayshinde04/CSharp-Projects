@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CCEE4C2D-48C1-4C23-A85F-42890C29EDA2}</ProjectGuid>
+    <ProjectGuid>{23345810-2C94-44A6-9F22-A3A3311E0138}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>CodeBase_Test_1</RootNamespace>
-    <AssemblyName>CodeBase Test 1</AssemblyName>
+    <RootNamespace>Assignment6</RootNamespace>
+    <AssemblyName>Assignment6</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,8 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Books.cs" />
+    <Compile Include="Employee.cs" />
+    <Compile Include="Empolyee.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Student.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
