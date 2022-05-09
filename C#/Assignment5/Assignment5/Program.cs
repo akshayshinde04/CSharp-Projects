@@ -6,66 +6,87 @@ using System.Threading.Tasks;
 
 namespace Assignment5
 {
-    internal class Program
-    {   
-        class Bank
+    public class WithdrawnException : ApplicationException
+    {
+        public WithdrawnException(string msg) : base(msg)
         {
-            int money = 1000;
-            String accName = "Capt Jack";
-            String accNum;
-            static String bankName = "American Express";
-            static public int updatedBalance;
-            public void depositMoney ()
+
+        }
+    }
+    public class Bank
+    {
+        float Amount = 10000.00f;
+        float Balance;
+        string AccName;
+        string AccNumber;
+
+        public Bank()
+        {
+            Console.WriteLine("Enter the Account Number : ");
+            AccNumber = Console.ReadLine();
+            Console.WriteLine("Enter the Account holder Name :");
+            AccName = Console.ReadLine();
+
+            Console.WriteLine($"The Account details is : AccountNum {AccNumber}, Acount Namer {AccName}, Amount is {Amount}");
+
+        }
+
+
+        public void DepositeAmount()
+        {
+            Console.WriteLine("Enter the Deposited Amount : ");
+            float DepositeAmount = Convert.ToSingle(Console.ReadLine());
+
+            if (DepositeAmount == 0)
             {
-                Console.WriteLine("Enter the amount you want to deposite:");
-                int depMoney = int.Parse(Console.ReadLine());
-                updatedBalance = money + depMoney;
-                if (depMoney == 0)
-                {
-                    Console.WriteLine("minimum deposit should be 100 ");
-                }
-                else
-                {
-                    Console.WriteLine("updated balance of " + accName + " after deposit is " + updatedBalance);
-                }
-            }
-            public void withdrawMoney()
-            {
-                try
-                {
-                    Console.WriteLine("Welcome " + accName + " your accountbalance: " + updatedBalance);
-                    Console.WriteLine("Enter the amount you want to withdraw:");
-                    int withdraw = int.Parse(Console.ReadLine());
-                    updatedBalance = updatedBalance - withdraw;
-                    if (withdraw > updatedBalance)
-                    {
-                        Console.WriteLine("Insufficient Balance");
-                    }
-                    else
-                    {
-                        Console.WriteLine("updated balance of " + accName + " after withdrawal is " + updatedBalance);
-                    }
-                }catch (Exception ex)
-                {
-                    Console.WriteLine(" Updated balance of " + accName + " after withdrawal is " + updatedBalance);
-                }
-            }
-            public void Balance()
-            {
-                Console.WriteLine("Welcome to the " + bankName + "bank ");
-                Console.WriteLine("Enter account number: ");
-                accNum = Console.ReadLine();
-                Console.WriteLine("Welcome " + accName + " your account balance: " + money);
+                Console.WriteLine("Deposite the minimum amount above 1000.00 ");
 
             }
+            else
+            {
+                Balance = Amount + DepositeAmount;
+                Console.WriteLine("Your Account Balance is After amount deposite : " + Balance);
+            }
         }
+
+        public void AmountWithdrawn()
+        {
+
+            Console.WriteLine("Enter the WithDrawn Amount : ");
+            float WithdrawnAmount = Convert.ToSingle(Console.ReadLine());
+
+
+            if (WithdrawnAmount > Balance)
+            {
+                throw (new WithdrawnException("Insufficent balance"));
+            }
+            else
+            {
+                Balance = Balance - WithdrawnAmount;
+                Console.WriteLine("Your Account Balance is After With Draw the amount :" + Balance);
+            }
+        }
+    }
+    internal class Program
+    {
         static void Main(string[] args)
         {
             Bank bank = new Bank();
-            bank.Balance();
-            bank.depositMoney();
-            bank.withdrawMoney();
-            Console.ReadLine();
+            try
+            {
+                bank.DepositeAmount();
+                bank.AmountWithdrawn();
+
+            }
+            catch (WithdrawnException we)
+            {
+                Console.WriteLine(we.Message);
+            }
+            catch (FormatException fe)
+            {
+                Console.WriteLine($"Enter only numbers ", fe);
+            }
+            Console.Read();
         }
     }
 }
